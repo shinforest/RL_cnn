@@ -77,7 +77,7 @@ class CNN:
         history=model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=epochs )
 
 
-        print(history.history['val_accuracy'][-1])
+        return history.history['val_accuracy'][-1]
 
 
         # model_json_str = model.to_json()

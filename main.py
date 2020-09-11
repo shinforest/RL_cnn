@@ -9,12 +9,13 @@ import random
 import numpy as np
 import tensorflow as tf
 from collections import deque
-from grid_world_one_hot import Grid
+from image_env import IMAGE
 from DQN_Net import Policy
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 
-grid=Grid(4,3)
+
+grid=IMAGE(4,3)
 policy=Policy(12,4)
 grid.draw_board()
 t_action=grid.t_action
