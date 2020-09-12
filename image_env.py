@@ -134,14 +134,14 @@ class IMAGE: # Environment
             current = tmp_i.enhance(0.9)
 
         
-        if action == 'U':
-            self.i -= 1
-        elif action == 'D':
-            self.i += 1
-        elif action == 'R':
-            self.j += 1
-        elif action == 'L':
-            self.j -= 1
+        # if action == 'U':
+        #     self.i -= 1
+        # elif action == 'D':
+        #     self.i += 1
+        # elif action == 'R':
+        #     self.j += 1
+        # elif action == 'L':
+        #     self.j -= 1
 
         #should be modified
         # return self.get_reward(episode)
@@ -174,25 +174,25 @@ class IMAGE: # Environment
 
         return dict(chain.from_iterable(d.items() for d in (self.actions, self.rewards)))
 
-    def draw_board(self):
-        board = []
-        for i in range(self.height):
-            for j in range(self.width):
-                if self.current_state()==[i,j]:
-                    board.append("!")
-                elif self.start==(i,j):
-                    board.append("S")
-                elif self.goal==(i,j):
-                    board.append("G")
-                elif self.breaker==(i,j):
-                    board.append("K")
-                else:
-                    board.append(" ")
-        print(" "*15, ".....................")
-        print(" "*15,"|","".join(board[0]), " |", "".join(board[1]), " |", "".join(board[2])," |","".join(board[3])," |")
-        print(" "*15,"|----|----|----|----|")
-        print(" "*15,"|","".join(board[4]), " |", "".join(board[5]), " |", "".join(board[6])," |","".join(board[7])," |")
-        print(" "*15,"|----|----|----|----|")
-        print(" "*15,"|","".join(board[8]), " |", "".join(board[9]), " |", "".join(board[10])," |","".join(board[11])," |")
+    # def draw_board(self):
+    #     board = []
+    #     for i in range(self.height):
+    #         for j in range(self.width):
+    #             if self.current_state()==[i,j]:
+    #                 board.append("!")
+    #             elif self.start==(i,j):
+    #                 board.append("S")
+    #             elif self.goal==(i,j):
+    #                 board.append("G")
+    #             elif self.breaker==(i,j):
+    #                 board.append("K")
+    #             else:
+    #                 board.append(" ")
+    #     print(" "*15, ".....................")
+    #     print(" "*15,"|","".join(board[0]), " |", "".join(board[1]), " |", "".join(board[2])," |","".join(board[3])," |")
+    #     print(" "*15,"|----|----|----|----|")
+    #     print(" "*15,"|","".join(board[4]), " |", "".join(board[5]), " |", "".join(board[6])," |","".join(board[7])," |")
+    #     print(" "*15,"|----|----|----|----|")
+    #     print(" "*15,"|","".join(board[8]), " |", "".join(board[9]), " |", "".join(board[10])," |","".join(board[11])," |")
 
-        print(" "*15, "''''''''''''''''''''")
+    #     print(" "*15, "''''''''''''''''''''")
