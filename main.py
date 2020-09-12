@@ -15,22 +15,23 @@ import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 
 
-grid=IMAGE(4,3)
+grid=IMAGE()
 policy=Policy(12,4)
-grid.draw_board()
 t_action=grid.t_action
-for _ in range(1000):
-    grid.resets()
+r_log=[]
+for episode in range(1000):
+    grid.resets(episode)
     state=grid.state
     done=grid.done
     actions=[]
     while not done:
         action=policy.choose_action(state)
-        observation=grid.step(action)
+        observation=grid.step(action,episode)
         n_state=observation[0]
         reward=observation[1]
         done=observation[2]
         policy.learn_act(state,reward,n_state)
         state=n_state
+        r_log.append(reward)
         actions.append(t_action[action])
-    print(_,actions)
+    print(episode,actions)

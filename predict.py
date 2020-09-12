@@ -18,13 +18,12 @@ from keras.models import Sequential, model_from_json
 class Predictor:
 
     def predict(self,model,episode,image_size=50):
-        X = []
-        files = glob.glob("test_assets/{}/*.jpg".format(episode))
-        image = Image.open(files[0])
+        # X = []
+        image = Image.open("test_assets/{}/*.jpg".format(episode))
         image = image.convert("RGB")
         image = image.resize((image_size, image_size))
-        data = np.asarray(image)
-        X.append(data)
+        X = np.asarray(image)
+        # X.append(data)
 
         X = np.array(X)
         X = X.astype('float32')
