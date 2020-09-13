@@ -27,7 +27,6 @@ for episode in range(1000):
     state=grid.state
     done=grid.done
     actions=[]
-    print(episode)
     while not done:
         action=policy.choose_action(state)
         observation=grid.step(action,episode,model)
