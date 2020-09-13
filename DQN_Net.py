@@ -104,7 +104,7 @@ class Policy:
             actions_value = self.sess.run(self.q_eval, feed_dict={self.s: [observation]})
             action = np.argmax(actions_value)
         else:
-            action=np.random.randint(4,size=1)[0]
+            action=np.random.randint(7,size=1)[0]
         self.action=action
         return self.action
 
@@ -116,10 +116,10 @@ class Policy:
             _, cost = self.sess.run(
                 [self._train_op, self.loss],
                 feed_dict={
-                    self.s: batch_memory[:, 0:12],
-                    self.a: batch_memory[:, 13],
-                    self.r: batch_memory[:, 12],
-                    self.s_: batch_memory[:, 14:26],
+                    self.s: batch_memory[:, 0:7500],
+                    self.a: batch_memory[:, 7501],
+                    self.r: batch_memory[:, 7500],
+                    self.s_: batch_memory[:, 7502:15002],
                 })
             self.cost_his.append(cost)
             if self.epsilon > self.epsilon_min:
