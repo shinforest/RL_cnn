@@ -5,4 +5,4 @@ model = m.load_model()
 
 
 p = Predictor()
-print(p.predict(model, "original"))
+print(p.predict(model, "0"))

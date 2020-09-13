@@ -6,11 +6,11 @@ from PIL import ImageEnhance, Image
 import os
 import shutil
 import glob
-m = Model()
-model = m.load_model()
+# m = Model()
+# model = m.load_model()
 
 class IMAGE: # Environment
-    def __init__(self,ini_):
+    def __init__(self):
         self.t_step=0
         self.max_step=10
         self.done=False
@@ -74,19 +74,24 @@ class IMAGE: # Environment
     #     self.j = s[1]
 
     def resets(self,episode):
-        os.makedir(episode)
-        shutil.copyfile("./test_assets/original/0.998.jpg", "./test_assets/{}/target.jpg".format(episode))
+        os.makedirs("test_assets/{}".format(str(episode)), exist_ok=True)
+        shutil.copyfile("./test_assets/original/target.jpg", "./test_assets/{}/target.jpg".format(episode))
         files = glob.glob("test_assets/{}/*.jpg".format(episode))
+        X = []
         image = Image.open(files[0])
         image = image.convert("RGB")
         image = image.resize((50, 50))
-        X = np.asarray(image)
+        data = np.asarray(image)
+        X.append(data)
+        
+        
         X = np.array(X)
+
         X = X.astype('float32')
         state = X / 255.0
-        self.__init__(4,3)
+        self.__init__()
         self.done=False
-        self.state = state
+        self.state = state.reshape(-1)
         self.t_step=0
 
     def getstate(self,episode):
@@ -96,10 +101,12 @@ class IMAGE: # Environment
         #         state.append(1)
         #     else:
         #         state.append(0)
-        image = Image.open("test_assets/{}/*.jpg".format(episode))
+        X = []
+        image = Image.open("test_assets/{}/target.jpg".format(episode))
         image = image.convert("RGB")
         image = image.resize((50,50))
-        X = np.asarray(image)
+        data = np.asarray(image)
+        X.append(data)
 
         X = np.array(X)
         X = X.astype('float32')
@@ -108,8 +115,8 @@ class IMAGE: # Environment
 
         return state
 
-    def step(self,action,episode):
-        Reward=self.move(action,episode)
+    def step(self,action,episode,model):
+        Reward=self.move(action,episode,model)
         state=self.getstate(episode)
         terminate=self.game_over(Reward)
         if terminate and Reward==0:
@@ -124,10 +131,12 @@ class IMAGE: # Environment
     #     return (self.i,self.j)
 
 
-    def move(self, action,episode):
+    def move(self, action,episode,model):
         # check if legal move first
         action=self.t_action[action]
-        image = Image.open("test_assets/{}/*.jpg".format(episode))
+        image = Image.open("test_assets/{}/target.jpg".format(episode))
+
+        print(action)
 
         if action == "0":
             pass
@@ -150,7 +159,7 @@ class IMAGE: # Environment
             image = ImageEnhance.Brightness(image)
             image = image.enhance(0.9)
 
-        image.save("test_assets/{}/*.jpg".format(episode))
+        image.save("test_assets/{}/target.jpg".format(episode))
 
         return self.get_reward.predict(model,episode)
 
