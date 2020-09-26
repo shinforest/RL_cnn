@@ -63,8 +63,9 @@ class IMAGE: # Environment
         Reward=self.move(action,episode,model)
         state=self.getstate(episode)
         terminate=self.game_over(Reward)
-        if terminate and Reward==0:
-            Reward=-0.1
+        #ペナルティの設計する必要あり
+        # if terminate and Reward<0.5:
+        #     Reward=-0.1
         self.t_step+=1
         return [state,Reward,terminate]
 

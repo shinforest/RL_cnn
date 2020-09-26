@@ -1,0 +1,5 @@
+/test_assets/*
+/models/*
+/model_save/*
+/__pycache__/*
+/r_log.npy

@@ -22,7 +22,7 @@ grid=IMAGE()
 policy=Policy(7500,7)
 t_action=grid.t_action
 r_log=[]
-for episode in range(1000):
+for episode in range(5000):
     grid.resets(episode)
     state=grid.state
     done=grid.done
@@ -42,4 +42,5 @@ for episode in range(1000):
     r_log.append(reward)
     print(episode,actions)
 
+policy.save_model()
 np.save("r_log", r_log)
